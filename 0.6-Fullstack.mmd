@@ -1,0 +1,17 @@
+sequenceDiagram
+    participant przeglądarka
+    participant serwer
+
+    Note right of przeglądarka: Użytkownik wpisuje treść notatki i klika "Save"
+
+    Note right of przeglądarka: JavaScript przechwytuje zdarzenie submit i zapobiega domyślnemu przesłaniu formularza
+
+    Note right of przeglądarka: Przeglądarka tworzy obiekt notatki z treścią i datą
+
+    Note right of przeglądarka: Notatka zostaje dodana do lokalnej listy i strona jest od razu zaktualizowana 
+
+    przeglądarka->>serwer: POST /new_note_spa z notatką jako JSON
+    serwer-->>przeglądarka: HTTP 201 Created
+
+
+    Note right of przeglądarka: Przeglądarka pozostaje na tej samej stronie — brak przeładowania
