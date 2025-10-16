@@ -11,7 +11,9 @@ sequenceDiagram
     Note right of przeglądarka: Notatka zostaje dodana do lokalnej listy i strona jest od razu zaktualizowana 
 
     przeglądarka->>serwer: POST /new_note_spa z notatką jako JSON
+    activate serwer
     serwer-->>przeglądarka: HTTP 201 Created
+    deactivate serwer
 
 
     Note right of przeglądarka: Przeglądarka pozostaje na tej samej stronie — brak przeładowania

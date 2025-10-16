@@ -3,21 +3,31 @@ sequenceDiagram
     participant serwer
 
     Note right of przeglądarka: Formularz HTML z method="POST" i action="/new_note"
+    activate serwer
     przeglądarka->>serwer: POST https://studies.cs.helsinki.fi/exampleapp/new_note
     Note left of serwer: Serwer dodaje notatkę do tablicy notes
     serwer-->>przeglądarka: HTTP 302 Przekierowanie do /notes
+    deactivate serwer
 
     przeglądarka->>serwer: GET https://studies.cs.helsinki.fi/exampleapp/notes
+    activate serwer
     serwer-->>przeglądarka: Dokument HTML
     przeglądarka->>serwer: GET  https://studies.cs.helsinki.fi/exampleapp/main.css
     serwer-->>przeglądarka: Plik CSS
+    deactivate serwer
+
 
     przeglądarka->>serwer: GET  https://studies.cs.helsinki.fi/exampleapp/main.js
-    serwer-->>przeglądarka: Plik JavaScript
+    activate serwer
+    serwer-->>przeglądarka: Plik JavaScript    
+    deactivate serwer
+
 
     Note right of przeglądarka: Przeglądarka wykonuje kod JavaScript, który pobiera dane notatek
 
     przeglądarka->>serwer: GET  https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate serwer
     serwer-->>przeglądarka: Aktualizuje plik JSON, który zawiera nową notatkę
+    deactivate serwer
 
     Note right of przeglądarka: Przeglądarka renderuje zaktualizowaną listę notatek
