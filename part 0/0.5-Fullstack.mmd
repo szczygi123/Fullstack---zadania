@@ -1,0 +1,22 @@
+sequenceDiagram
+    participant przeglądarka
+    participant serwer
+
+    przeglądarka->>serwer: GET https://studies.cs.helsinki.fi/exampleapp/spa
+    serwer-->przeglądarka: dokument HTML (200 OK)
+
+    przeglądarka->>serwer: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    serwer-->przeglądarka: Plik CSS (200 OK)
+    Note right of przeglądarka: Przeglądarka ładuje style strony
+
+    przeglądarka->>serwer: GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+    serwer-->przeglądarka: Plik JavaScript (200 OK)
+    Note right of przeglądarka: Przeglądarka ładuje logikę aplikacji SPA
+
+    Note right of przeglądarka: Przeglądarka uruchamia kod JavaScript spa.js
+
+    przeglądarka->>serwer: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    serwer-->przeglądarka: zwraca dokument z danymi data.json (200 OK)
+    Note right of przeglądarka: Przeglądarka pobiera dane notatek w formacie JSON
+
+    Note right of przeglądarka: Przeglądarka renderuje notatki dynamicznie za pomocą DOM-API
