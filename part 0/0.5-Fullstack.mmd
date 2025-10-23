@@ -4,21 +4,21 @@ sequenceDiagram
 
     przeglądarka->>serwer: GET https://studies.cs.helsinki.fi/exampleapp/spa
     activate serwer
-    serwer-->przeglądarka: dokument HTML (200 OK)
+    serwer-->>przeglądarka: dokument HTML (200 OK)
     deactivate serwer
 
 
     przeglądarka->>serwer: GET https://studies.cs.helsinki.fi/exampleapp/main.css
     activate serwer
 
-    serwer-->przeglądarka: Plik CSS (200 OK)
+    serwer-->>przeglądarka: Plik CSS (200 OK)
     Note right of przeglądarka: Przeglądarka ładuje style strony
     deactivate serwer
 
 
     przeglądarka->>serwer: GET https://studies.cs.helsinki.fi/exampleapp/spa.js
     activate serwer
-    serwer-->przeglądarka: Plik JavaScript (200 OK)
+    serwer-->>przeglądarka: Plik JavaScript (200 OK)
     Note right of przeglądarka: Przeglądarka ładuje logikę aplikacji SPA
     deactivate serwer
 
@@ -27,7 +27,7 @@ sequenceDiagram
 
     przeglądarka->>serwer: GET https://studies.cs.helsinki.fi/exampleapp/data.json
     activate serwer
-    serwer-->przeglądarka: zwraca dokument z danymi data.json (200 OK)
+    serwer-->>przeglądarka: zwraca dokument z danymi data.json (200 OK)
     Note right of przeglądarka: Przeglądarka pobiera dane notatek w formacie JSON
     deactivate serwer
 
