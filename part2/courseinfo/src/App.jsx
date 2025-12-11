@@ -52,6 +52,7 @@ const App = () => {
         <Course key={course.id} course={course} />
       )}
     </div>
+    
   )
 }
 

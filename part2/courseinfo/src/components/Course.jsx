@@ -5,6 +5,7 @@ import Total from './Total'
 const Course = ({ course }) => {
     return (
         <div>
+          <div>debug: {newName}</div>
           <Header name={course.name} />
           <Content parts={course.parts} />
           <Total parts={course.parts} />
