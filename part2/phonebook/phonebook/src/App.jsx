@@ -54,5 +54,5 @@ const App = () => {
     </div>
   )
 } 
-
+//zacznij czytać od npm
 export default App
