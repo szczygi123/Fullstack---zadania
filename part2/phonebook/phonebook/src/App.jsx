@@ -26,14 +26,29 @@ const addPerson = (event) => {
 
   const nameExists = persons.find(p => p.name === newName)
   if (nameExists) {
-    alert(`${newName} is already added to phonebook`)
+    const ok = window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)
+    
+    if (!ok) return 
+
+    const updatedPerson = {...nameExists , number: newNumber}
+
+    personService
+      .update(nameExists.id, updatedPerson)
+      .then(returnedPerson => {
+        setPersons(persons.map(p => 
+          p.id !== nameExists.id ? p : returnedPerson))
+        setNewName('')
+        setNewNumber('')
+      })
+
     return
+
   }
 
-  const personObject = {
-    name: newName,
-    number: newNumber
-  }
+      const personObject = {
+      name: newName,
+      number: newNumber
+    }
 
   personService
     .create(personObject)
@@ -43,6 +58,18 @@ const addPerson = (event) => {
       setNewNumber('')
     })
 }
+
+  const handleDelete = (id, name) => {
+    const ok = window.confirm(`Delete ${name}?`)
+    if (!ok) return
+
+    personService
+      .deletePerson(id)
+      .then(() => {
+        setPersons(persons.filter(p => p.id !== id))
+      })
+  }
+
 
 
   const handleNameChange = (event) => setNewName(event.target.value)
@@ -66,7 +93,7 @@ const addPerson = (event) => {
       />
           
       <h2>Numbers</h2>
-      <Persons persons={personsToShow}/>
+      <Persons persons={personsToShow} handleDelete={handleDelete} />
     </div>
   )
 } 
