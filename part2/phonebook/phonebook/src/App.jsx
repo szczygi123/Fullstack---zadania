@@ -4,6 +4,8 @@ import Filter from './components/Filter'
 import PersonFrom from './components/PersonFrom'
 import Persons from './components/Persons'
 import personService from './services/persons'
+import Notification from './components/Notification'
+
 
 
 const App = () => {
@@ -11,6 +13,8 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
+  const [information, setInformation] = useState(null)
+
 
   useEffect(() => {
     personService
@@ -35,10 +39,22 @@ const addPerson = (event) => {
     personService
       .update(nameExists.id, updatedPerson)
       .then(returnedPerson => {
-        setPersons(persons.map(p => 
-          p.id !== nameExists.id ? p : returnedPerson))
+        setPersons(persons.map(p => p.id !== nameExists.id ? p : returnedPerson))
+        setInformation({
+          text:`Updated number for ${returnedPerson.name}`,
+          type: `message`
+        })
+        setTimeout(() => {setInformation(null)}, 5000)
         setNewName('')
         setNewNumber('')
+        })
+      .catch(error => { 
+        setInformation({
+          text:`Information of ${nameExists.name} has already been removed from server`,
+          type: `error`
+        })
+        setTimeout(() => setInformation(null), 5000) 
+        setPersons(persons.filter(p => p.id !== nameExists.id))
       })
 
     return
@@ -54,6 +70,11 @@ const addPerson = (event) => {
     .create(personObject)
     .then(returnedPerson => {
       setPersons(persons.concat(returnedPerson))
+      setInformation({
+          text:`Added ${returnedPerson.name}`,
+          type: `message`
+        })
+      setTimeout(() => {setInformation(null)}, 5000)
       setNewName('')
       setNewNumber('')
     })
@@ -83,6 +104,7 @@ const addPerson = (event) => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={information} />
       <Filter filter={filter} handleFilterChange={handleFilterChange}/>
 
       <h2>add a new</h2>
