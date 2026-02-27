@@ -13,31 +13,51 @@ const CountriesList =({countries, onShow}) => {
   )
 }
 
-const CountriesDetails = ({country}) => {
+const CountriesDetails = ({ country }) => {
   const api_key = import.meta.env.VITE_SOME_KEY
+  const [weather, setWeather] = useState(null)
 
-  return(
+  useEffect(() => {
+    if (country && country.capital) {
+      axios
+        .get(`https://api.openweathermap.org/data/2.5/weather?q=${country.capital}&appid=${api_key}&units=metric`)
+        .then(response => {
+          setWeather(response.data)
+    })}
+  }, [country, api_key])
+
+
+  if (!weather) {
+    return <div>Pobieranie danych pogodowych...</div>
+  }
+
+
+  const iconCode = weather.weather[0].icon
+  const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`
+
+  return (
     <div>
       <h2>{country.name.common}</h2>
+
       <p>Capital: {country.capital}</p>
       <p>Area: {country.area}</p>
 
       <h3>Languages</h3>
-        <ul>
-          {Object.values(country.languages).map(lang => (
+      <ul>
+        {Object.values(country.languages).map(lang => (
           <li key={lang}>{lang}</li>
         ))}
-        </ul>
+      </ul>
 
-      <img src={country.flags.png} alt={country.name.common} />
+      <img src={country.flags.png} alt={country.name.common} width="150" />
 
       <h3>Weather in {country.capital}</h3>
-      <p>Temperature  Celsius</p>
-      <img src="" alt="" />
-      <p>Wind </p>
-
+      <p>Temperature {weather.main.temp} Celsius</p>
+      
+      <img src={iconUrl} alt={weather.weather[0].description} />
+      
+      <p>Wind {weather.wind.speed} m/s</p>
     </div>
-
   )
 }
 
