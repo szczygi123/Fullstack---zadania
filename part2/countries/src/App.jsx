@@ -28,7 +28,7 @@ const CountriesDetails = ({ country }) => {
 
 
   if (!weather) {
-    return <div>Pobieranie danych pogodowych...</div>
+    return 
   }
 
 
