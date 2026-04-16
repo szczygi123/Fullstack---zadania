@@ -31,6 +31,11 @@ let persons = [
     }
 ]
 
+const path = require('path')
+
+// ... wszystkie Twoje endpointy API ...
+
+
 app.get('/api/persons', (request, response) => {
   response.json(persons)
 })
@@ -101,6 +106,22 @@ app.delete('/api/persons/:id', (request, response) => {
   persons = persons.filter((person) => person.id !== id)
 
   response.status(204).end()
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'))
 })
 
 const PORT = process.env.PORT || 3001
