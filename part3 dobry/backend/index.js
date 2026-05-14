@@ -7,6 +7,7 @@ app.use(express.static('dist'))
 morgan.token('body', (req, res) => JSON.stringify(req.body))
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
 
+
 let persons = [
     { 
       "id": "1",
@@ -86,10 +87,7 @@ app.get('/api/persons/:id', (request, response) => {
 app.get('/info', (request, response) => {
   response.send(("Phonebook has info for " + persons.length + " people<br>")
     + new Date().toString())
-
-
-
-
+    
   const id = request.params.id
   const person = persons.find(person => person.id === id)
    if (person) {
