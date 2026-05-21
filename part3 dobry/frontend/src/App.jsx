@@ -43,6 +43,10 @@ const addPerson = (event) => {
         }, 5000)
       })
       .catch(error => {
+        setErrorMessage({
+        text: error.response.data.error, 
+        type: "error"
+      })
         console.error("Error adding person:", error)
       })
   } else {
