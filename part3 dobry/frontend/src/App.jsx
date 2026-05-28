@@ -47,6 +47,9 @@ const addPerson = (event) => {
         text: error.response.data.error, 
         type: "error"
       })
+      setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
         console.error("Error adding person:", error)
       })
   } else {
